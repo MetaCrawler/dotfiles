@@ -76,3 +76,5 @@ source "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # VS Code Remote-Container: Shell-Integration laden, wenn verfügbar.
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
+# Export devcontainers
+export PATH="$HOME/.devcontainers/bin:$PATH"
