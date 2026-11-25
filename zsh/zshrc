@@ -36,6 +36,9 @@ source "$ZSH/oh-my-zsh.sh"
 
 # Keine Befehle mit führendem Leerzeichen in der persistenten History speichern.
 setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
+# Jeden Befehl sofort schreiben: Ein Devcontainer-Rebuild beendet die Shell
+# ohne sauberen Exit, sonst geht die History der laufenden Sitzung verloren.
+setopt INC_APPEND_HISTORY
 
 # ── Optionale, im jeweiligen Image vorhandene Shell-Integrationen ──
 if (( $+commands[direnv] )); then
