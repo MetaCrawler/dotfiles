@@ -1,4 +1,4 @@
-# Öffentliche Git-Basiskonfiguration, verlinkt nach ~/.config/git/config.
+# Öffentliche Git-Basiskonfiguration, per include in ~/.config/git/config eingebunden.
 # Die Identität steht bewusst nicht hier, sondern in einer privaten Datei im
 # Claude-Volume, damit sie Devcontainer-Rebuilds übersteht. Fehlt die Datei,
 # ignoriert Git das include. Eine vorhandene ~/.gitconfig hat immer Vorrang.

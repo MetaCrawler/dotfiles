@@ -24,8 +24,9 @@ VS Code Dev Containers klont dieses Repository über die User Settings nach
   von Devcontainer-Features angelegte Completions, bleiben unangetastet.
 - `~/.zshrc` und `~/.p10k.zsh` werden verlinkt. Vorhandene reguläre Dateien
   werden zuvor als zeitgestempeltes Backup gesichert.
-- `~/.config/git/config` wird auf `git/config` verlinkt. Die Datei enthält keine
-  Identität, sondern bindet die private `~/.claude/.gitconfig.local` ein und
+- `~/.config/git/config` bleibt eine lokale Datei und bindet `git/config` per
+  include ein, damit `git config --global` nie in dieses Repository schreibt.
+  `git/config` enthält keine Identität, sondern bindet die private `~/.claude/.gitconfig.local` ein und
   verbietet Git, Name oder E-Mail aus Hostname und Benutzer zu raten. Liegt
   `~/.claude` in einem Devcontainer-Volume, übersteht die Identität Rebuilds,
   ohne dass sie in diesem öffentlichen Repository steht. Einmal pro Rechner
