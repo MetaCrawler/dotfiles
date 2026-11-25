@@ -45,7 +45,13 @@ check_command zsh
 
 check_link "$HOME/.zshrc" "$DOTFILES/zsh/zshrc"
 check_link "$HOME/.p10k.zsh" "$DOTFILES/zsh/p10k.zsh"
-check_link "$HOME/.config/git/config" "$DOTFILES/git/config"
+if [[ -L "$HOME/.config/git/config" ]]; then
+  fail "$HOME/.config/git/config ist ein Link; globale Git-Einstellungen landen im Repository. install.sh erneut ausführen"
+elif git config --file "$HOME/.config/git/config" --get-all include.path 2>/dev/null | grep -qxF "$DOTFILES/git/config"; then
+  ok "$HOME/.config/git/config bindet $DOTFILES/git/config ein"
+else
+  fail "$HOME/.config/git/config bindet $DOTFILES/git/config nicht ein"
+fi
 
 if git_email_origin="$(git config --show-origin user.email 2>/dev/null)"; then
   ok "Git-Identität aus ${git_email_origin%%$'\t'*}"

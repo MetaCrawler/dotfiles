@@ -9,6 +9,8 @@ CUSTOM="${ZSH_CUSTOM:-$ZSH_DIR/custom}"
 source "$DOTFILES/versions.env"
 # shellcheck source=claude/extensions.sh
 source "$DOTFILES/claude/extensions.sh"
+# shellcheck source=git/setup.sh
+source "$DOTFILES/git/setup.sh"
 
 log()  { printf '\033[1;34m[dotfiles]\033[0m %s\n' "$*"; }
 warn() { printf '\033[1;33m[dotfiles:warn]\033[0m %s\n' "$*" >&2; }
@@ -272,10 +274,10 @@ sync_repo zsh-users/zsh-syntax-highlighting "$CUSTOM/plugins/zsh-syntax-highligh
 link_file "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
 link_file "$DOTFILES/zsh/p10k.zsh" "$HOME/.p10k.zsh"
 
-# Git-Identität: öffentliche Basis verlinken, Name/E-Mail kommen aus der privaten
-# ~/.claude/.gitconfig.local (siehe README). Eine ~/.gitconfig hat Vorrang.
-mkdir -p "$HOME/.config/git"
-link_file "$DOTFILES/git/config" "$HOME/.config/git/config"
+# Git-Identität: öffentliche Basis per include einbinden, Name/E-Mail kommen aus
+# der privaten ~/.claude/.gitconfig.local (siehe README). Eine ~/.gitconfig hat Vorrang.
+dotfiles_git_setup "$DOTFILES/git/config" | while read -r line; do log "$line"; done
+log "git config: $HOME/.config/git/config bindet $DOTFILES/git/config ein"
 if ! git config user.email >/dev/null 2>&1; then
   warn "keine Git-Identität: user.name/user.email in ~/.claude/.gitconfig.local eintragen (siehe README)"
 fi
