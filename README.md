@@ -65,17 +65,11 @@ oeffentliche Sicherheitspruefung stehen in [claude/README.md](claude/README.md).
 
 ## Sicherheitsrelevante Claude-Einstellungen
 
-`claude/settings.json` setzt `acceptEdits` als persönlichen Standard. Claude Code
-darf damit Dateien im Arbeitsverzeichnis sowie übliche Dateisystemoperationen
-ohne einzelne Bestätigung ausführen. Andere Shell-, Netzwerk- und
-Infrastrukturaktionen durchlaufen weiterhin die Berechtigungsprüfung.
-
-Für eine bewusst autonom gestartete Sitzung kann bei unterstütztem Konto,
-Provider und Modell der Auto-Modus verwendet werden:
-
-```bash
-CLAUDE_CODE_ENABLE_AUTO_MODE=1 claude --permission-mode auto
-```
+`claude/settings.json` setzt den Auto-Modus als persönlichen Standard
+(`permissions.defaultMode: "auto"`, entspricht `--permission-mode auto`) und den
+Update-Kanal `latest`. Projekteinstellungen können den Auto-Modus nicht
+vorgeben, deshalb steht er hier in den Benutzereinstellungen. Ein anderer Modus
+lässt sich pro Sitzung weiterhin mit `--permission-mode` oder Shift+Tab wählen.
 
 Der Auto-Modus prüft Aktionen mit einem separaten Sicherheitsklassifikator,
 garantiert aber keine Sicherheit. `bypassPermissions` bleibt ausschließlich ein
