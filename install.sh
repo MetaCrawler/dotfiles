@@ -84,7 +84,7 @@ sync_repo() {
   if [[ "$current" != "$ref" ]]; then
     log "setze $(basename "$dest") auf ${ref:0:12}"
     git -C "$dest" fetch --quiet --depth=1 origin "$ref"
-    git -C "$dest" checkout --quiet --detach FETCH_HEAD
+    git -C "$dest" checkout --quiet --no-overwrite-ignore --detach FETCH_HEAD
   else
     log "gepinnt: $(basename "$dest") (${ref:0:12})"
   fi
@@ -271,6 +271,8 @@ sync_repo zsh-users/zsh-syntax-highlighting "$CUSTOM/plugins/zsh-syntax-highligh
 
 link_file "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
 link_file "$DOTFILES/zsh/p10k.zsh" "$HOME/.p10k.zsh"
+
+bash "$DOTFILES/install-tools.sh"
 
 if command -v claude >/dev/null 2>&1; then
   if ! claude_extensions_preflight "$DOTFILES/claude" "$HOME/.claude"; then
