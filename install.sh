@@ -272,6 +272,14 @@ sync_repo zsh-users/zsh-syntax-highlighting "$CUSTOM/plugins/zsh-syntax-highligh
 link_file "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
 link_file "$DOTFILES/zsh/p10k.zsh" "$HOME/.p10k.zsh"
 
+# Git-Identität: öffentliche Basis verlinken, Name/E-Mail kommen aus der privaten
+# ~/.claude/.gitconfig.local (siehe README). Eine ~/.gitconfig hat Vorrang.
+mkdir -p "$HOME/.config/git"
+link_file "$DOTFILES/git/config" "$HOME/.config/git/config"
+if ! git config user.email >/dev/null 2>&1; then
+  warn "keine Git-Identität: user.name/user.email in ~/.claude/.gitconfig.local eintragen (siehe README)"
+fi
+
 if command -v claude >/dev/null 2>&1; then
   if ! claude_extensions_preflight "$DOTFILES/claude" "$HOME/.claude"; then
     die "Claude-Erweiterungen enthalten Konflikte oder unsichere Quellen."

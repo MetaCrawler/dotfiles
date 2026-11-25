@@ -24,6 +24,20 @@ VS Code Dev Containers klont dieses Repository über die User Settings nach
   von Devcontainer-Features angelegte Completions, bleiben unangetastet.
 - `~/.zshrc` und `~/.p10k.zsh` werden verlinkt. Vorhandene reguläre Dateien
   werden zuvor als zeitgestempeltes Backup gesichert.
+- `~/.config/git/config` wird auf `git/config` verlinkt. Die Datei enthält keine
+  Identität, sondern bindet die private `~/.claude/.gitconfig.local` ein und
+  verbietet Git, Name oder E-Mail aus Hostname und Benutzer zu raten. Liegt
+  `~/.claude` in einem Devcontainer-Volume, übersteht die Identität Rebuilds,
+  ohne dass sie in diesem öffentlichen Repository steht. Einmal pro Rechner
+  anlegen:
+
+  ```bash
+  git config --file ~/.claude/.gitconfig.local user.name "Dein Name"
+  git config --file ~/.claude/.gitconfig.local user.email "du@example.com"
+  ```
+
+  Eine vorhandene `~/.gitconfig`, z. B. von VS Code aus dem Host kopiert oder
+  in WSL, hat Vorrang.
 - npm-, Node-, Docker- und sudo-Plugins sowie direnv, fzf und gh-Completion
   werden nur aktiviert, wenn die jeweilige Umgebung sie anbietet.
 - Die zsh-History wird nur dann nach `~/.claude/.shell/zsh_history` umgebogen,

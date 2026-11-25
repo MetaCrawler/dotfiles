@@ -1,0 +1,10 @@
+# Öffentliche Git-Basiskonfiguration, verlinkt nach ~/.config/git/config.
+# Die Identität steht bewusst nicht hier, sondern in einer privaten Datei im
+# Claude-Volume, damit sie Devcontainer-Rebuilds übersteht. Fehlt die Datei,
+# ignoriert Git das include. Eine vorhandene ~/.gitconfig hat immer Vorrang.
+[include]
+	path = ~/.claude/.gitconfig.local
+
+[user]
+	# Keine Identität aus Hostname/Benutzer raten (vscode@<container-id>).
+	useConfigOnly = true

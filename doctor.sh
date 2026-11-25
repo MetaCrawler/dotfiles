@@ -45,6 +45,13 @@ check_command zsh
 
 check_link "$HOME/.zshrc" "$DOTFILES/zsh/zshrc"
 check_link "$HOME/.p10k.zsh" "$DOTFILES/zsh/p10k.zsh"
+check_link "$HOME/.config/git/config" "$DOTFILES/git/config"
+
+if git_email_origin="$(git config --show-origin user.email 2>/dev/null)"; then
+  ok "Git-Identität aus ${git_email_origin%%$'\t'*}"
+else
+  warn "keine Git-Identität; Commits schlagen fehl. user.name/user.email in ~/.claude/.gitconfig.local eintragen"
+fi
 
 check_revision oh-my-zsh "$HOME/.oh-my-zsh" "$OH_MY_ZSH_REF"
 check_revision powerlevel10k "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" "$POWERLEVEL10K_REF"
