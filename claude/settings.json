@@ -1,6 +1,6 @@
 {
-  "autoUpdatesChannel": "stable",
+  "autoUpdatesChannel": "latest",
   "permissions": {
-    "defaultMode": "acceptEdits"
+    "defaultMode": "auto"
   }
 }
